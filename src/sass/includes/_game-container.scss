@@ -1,0 +1,26 @@
+.game-container{
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:auto;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cc0000+0,420000+100 */
+background: #cc0000; /* Old browsers */
+background: -moz-linear-gradient(-45deg,  #cc0000 0%, #420000 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg,  #cc0000 0%,#420000 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg,  #cc0000 0%,#420000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#420000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+  width:100%;
+  height:100%;
+
+  @import 'includes/_bar.scss';
+  @import 'includes/_game-area.scss';
+
+  #background{
+    position:absolute;
+    top:50px;
+    left:0;
+  }
+  }

@@ -1,0 +1,31 @@
+.bar{
+  width:100%;
+  background-color:$maroon;
+  height:50px;
+  text-align: center;
+  display: table;
+  .content{
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 3rem;
+  }
+
+  .score{
+    position: absolute;
+    right:20px;
+    line-height: 50px;
+    font-size: 4rem;
+  }
+
+
+
+  &--bottom{
+    position: absolute;
+    bottom:0;
+  }
+  &--middle{
+    position: absolute;
+    bottom:0;
+    top:0;
+    margin:auto;
+  }}
