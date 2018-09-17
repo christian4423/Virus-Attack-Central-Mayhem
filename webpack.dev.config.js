@@ -1,20 +1,25 @@
+const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require("webpack");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const path = require("path");
-
-
 module.exports = {
     entry: [
+        'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
         "@babel/polyfill",
         "./src/entry-base.js",
         "./src/entry-js.js",
         "./src/entry-images.js"
-    ],    
-    mode: 'production',
+    ],
+    mode: 'development',
     output: {
-        path: path.join(__dirname, "/public"),
-        publicPath: "/public",
-        filename: "[name].js"
+        publicPath: "/",
+        filename: "bundle.js",
+        path: __dirname
+    },
+    devtool: 'eval-source-map',
+    devServer: {
+        contentBase: './',
+        hot: true,
+        historyApiFallBack: true
     },
     module: {
         rules: [
@@ -39,24 +44,35 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    "css-loader"
+                use: [{ loader: "style-loader" },
+                {
+                    loader: "css-loader",
+                    options: {
+                        modules: true,
+                        sourceMap: true
+                    }
+                }
                 ]
             },
             {
                 test: /\.less$/,
-                use: [MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "less-loader"
-                ]
+                use: [{
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader" // translates CSS into CommonJS
+                }, {
+                    loader: "less-loader" // compiles Less to CSS
+                }]
             },
             {
                 test: /\.(scss|sass)$/,
-                use: [MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "sass-loader"
-                ]
+                use: [{
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader" // translates CSS into CommonJS
+                }, {
+                    loader: "sass-loader" // compiles Less to CSS
+                }]
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
@@ -82,24 +98,19 @@ module.exports = {
     },
     resolve: {
         modules: [
-            path.join(__dirname, "src"),
-            "bower_components",
-            "node_modules",
+            'bower_components',
+            'node_modules',
         ],
         extensions: [
-            ".js",
-            ".jsx",
-            ".style"
+            '*',
+            '.js',
+            '.jsx',
+            '.style'
         ]
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: "./css/bundle.css"
-        }),
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery",
-            "window.jQuery": "jquery"
-        })
+        new CleanWebpackPlugin(['public']),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ]
 };
